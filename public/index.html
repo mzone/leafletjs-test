@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>LeafletJsTest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin=""/>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #map {
+      height: 50%;
+      width: 100vw;
+      z-index: 1;
+    }
+
+    #progress-wrapper {
+      position: fixed;
+      top:0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      display: none;
+      z-index: 10;
+    }
+
+    #progress-wrapper.show {
+      display: block;
+    }
+
+    #progressbar {
+      position: absolute;
+      width: 100%;
+      height: 20px;
+      background-color: #00F;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<div style="padding: 1em;">
+
+  <p>0、<a href="#" id="btnInit">初期はロシア？ウクライナ？周辺</a></p>
+
+  <p>1、<a href="#" id="btnSave">豊田市周辺の地図を保存する</a><br><small>地図右上のoffline tilesで保存した範囲を表示できる（※チェックつけてもページをリロードしないと表示されません）</small></p>
+
+  <p>2、端末をフライトモードにする</p>
+
+  <p>3、<a href="#" id="btnJumpToToyota">豊田市周辺へジャンプ</a><br><small>保存した場所以外でもブラウザキャッシュに残っている画像があればそれも表示されている</small></p>
+
+<hr>
+
+<p><a href="#" id="btnDisplayTiles">console.logで地図タイル画像確認</a></p>
+
+<p><a href="#" id="btnDelete">indexedDBから地図タイル画像を削除する</a></p>
+
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

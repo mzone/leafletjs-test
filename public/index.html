@@ -17,7 +17,7 @@
     }
 
     #map {
-      height: 50%;
+      height: 90%;
       width: 100vw;
       z-index: 1;
     }
@@ -51,7 +51,15 @@
 
   <p>0、<a href="#" id="btnInit">初期はロシア？ウクライナ？周辺</a></p>
 
-  <p>1、<a href="#" id="btnSave">豊田市周辺の地図を保存する</a><br><small>地図右上のoffline tilesで保存した範囲を表示できる（※チェックつけてもページをリロードしないと表示されません）</small></p>
+  <div>1、<br>
+    <a href="#" id="btnSave0">HQ周辺の地図を保存する</a><br>
+    <a href="#" id="btnSave1">SS1 Nukata Forestの地図を保存する</a><br>
+    <a href="#" id="btnSave2">SS2 Lake Mikawakoの地図を保存する</a><br>
+    <a href="#" id="btnSave3">SS3 Okazaki Cityの地図を保存する</a><br>
+    <a href="#" id="btnSave4">SS4 Nenoue Plateauの地図を保存する</a><br>
+    <a href="#" id="btnSave5">SS5 Ena Cityの地図を保存する</a><br>
+
+    <small>地図右上のoffline tilesで保存した範囲を表示できる（※チェックつけてもページをリロードしないと表示されません）</small></div>
 
   <p>2、端末をフライトモードにする</p>
 
@@ -61,7 +69,15 @@
 
 <p><a href="#" id="btnDisplayTiles">console.logで地図タイル画像確認</a></p>
 
-<p><a href="#" id="btnDelete">indexedDBから地図タイル画像を削除する</a></p>
+<p>
+  <a href="#" id="btnDelete0">indexedDBからHQ地図を削除する</a><br>
+  <a href="#" id="btnDelete1">indexedDBからSS1地図を削除する</a><br>
+  <a href="#" id="btnDelete2">indexedDBからSS2地図を削除する</a><br>
+  <a href="#" id="btnDelete3">indexedDBからSS3地図を削除する</a><br>
+  <a href="#" id="btnDelete4">indexedDBからSS4地図を削除する</a><br>
+  <a href="#" id="btnDelete5">indexedDBからSS5地図を削除する</a><br>
+</p>
+<p><a href="#" id="btnDelete">indexedDBから地図タイル画像を一括削除する</a></p>
 
 </div>
 

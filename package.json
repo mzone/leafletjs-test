@@ -6,7 +6,9 @@
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
+    "babel-core": "^6.26.3",
     "babel-loader": "^9.1.0",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^6.7.2",
     "debounce": "^1.2.1",
     "idb": "^7.1.1",
@@ -20,5 +22,8 @@
     "togeojson": "^0.16.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }

@@ -1,5 +1,6 @@
 import rsLeafletOffline from './rs-leaflet.offline';
 import storageLayer from './storageLayer';
+import debounce from './debounce';
 
 // 各SSの地図 Lat Lang
 const ssLatLang = {
@@ -61,11 +62,15 @@ function saveTiles(channel, ss, latLang) {
     tileInfos = [...tileInfos, ...rsLeafletOffline.getTileUrls(baseLayer, L.bounds(topLeftPoint, bottomRightPoint), zoom)];
   });
 
+  var done = 0;
   tileInfos.forEach((tileInfo) => {
     tileInfo['channel'] = channel;//テスト試合のチャンネル
     tileInfo['channel_ss'] = channel + '_' + ss;
 
-    rsLeafletOffline.downloadTile(tileInfo.url).then(blob => rsLeafletOffline.saveTile(tileInfo, blob));
+    rsLeafletOffline.downloadTile(tileInfo.url).then(blob => rsLeafletOffline.saveTile(tileInfo, blob).then(() => {
+      done++;
+      console.log(`saved tile from ${done} / ${tileInfos.length}`)
+    }));
   });
 }
 
@@ -88,11 +93,34 @@ function deleteTilesByChannelSS(channel, ss) {
 /* 保存状況確認ここから */
 // layer switcher control
 const layerswitcher = L.control.layers({
-  'osm (offline)': baseLayer,
+  // 'osm (offline)': baseLayer,
 }, null, {collapsed: false}).addTo(map);
 // add storage overlay
 storageLayer(baseLayer, layerswitcher);
 /* 保存状況確認ここまで */
+
+/* 途中経過処理ここから */
+let progress, total;
+const showProgress = debounce(() => {
+  document.getElementById('progressbar').style.width = `${(progress/total) * 100}%`;
+  document.getElementById('progressbar').innerHTML = progress;
+  if(progress === total) {
+    setTimeout(() => document.getElementById('progress-wrapper').classList.remove('show'), 1000);
+  }
+}, 10);
+baseLayer.on('savestart', (e) => {
+  console.log("savestart", e);
+  progress = 0;
+  total = e._tilesforSave.length;
+  document.getElementById('progress-wrapper').classList.add('show');
+  document.getElementById('progressbar').style.width = '0%';
+});
+baseLayer.on('savetileend', () => {
+  console.log("savetileend");
+  progress += 1;
+  showProgress();
+});
+/* 途中経過処理ここまで */
 
 document.getElementById('btnInit').addEventListener('click', (event) => {
   event.preventDefault();
@@ -172,3 +200,4 @@ document.getElementById('btnDisplayTiles').addEventListener('click', (event) => 
 
 global.map = map;
 global.rsLeafletOffline = rsLeafletOffline;
+global.baseLayer = baseLayer;

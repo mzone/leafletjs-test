@@ -2353,6 +2353,11 @@ leaflet-filelayer@^1.2.0:
   resolved "https://registry.yarnpkg.com/leaflet-filelayer/-/leaflet-filelayer-1.2.0.tgz#9f822e68a06072b0b0a8f328ba9419ba96bbccb1"
   integrity sha512-H3HrOOM9bpkrRUacdnWISV0MKZXLBYsX24H4XV+55QbcGCvd9In6oPzANEnhsokHAwNWd9qP6GfiHEFCfn+qkA==
 
+leaflet-kml@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/leaflet-kml/-/leaflet-kml-1.0.1.tgz#92aec859325cf96d62acb84931a5539e03f75c2a"
+  integrity sha512-9eL2gb+3aGpzM1YMqX864JYdKmd6Rzdg1KX/lu0dVfZOJtqA44YFh2VS6BFcY6LDnBdnKX0U+88DtPM5s65u5Q==
+
 leaflet.offline@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/leaflet.offline/-/leaflet.offline-2.2.0.tgz#fce1975ed8871e363fb7d005035c9d51881384aa"

@@ -1,4 +1,5 @@
 import rsLeafletOffline from './rs-leaflet.offline';
+import 'leaflet-kml/L.KML.js';
 import storageLayer from './storageLayer';
 import debounce from './debounce';
 
@@ -13,13 +14,44 @@ const ssLatLang = {
 };
 
 const map = L.map('map');
-const urlTemplate = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
-const baseLayer = L.tileLayer.offline(urlTemplate, {
-  attribution: 'Map data {attribution.OpenStreetMap}',
-  subdomains: 'abc',
-  minZoom: 9,
+// const urlTemplate = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+// const baseLayer = L.tileLayer.offline(urlTemplate, {
+//   attribution: 'Map data {attribution.OpenStreetMap}',
+//   subdomains: 'abc',
+//   minZoom: 9,
+// }).addTo(map)
+
+// Streets 衛星
+// const baseLayer = L.tileLayer.offline('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+//   minZoom: 2,
+//   subdomains:['mt0','mt1','mt2','mt3']
+// }).addTo(map);
+
+// Hybrid 衛星 with 道路
+const baseLayer = L.tileLayer.offline('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+  minZoom: 2,
+  subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
+
+// Streets 道路
+// const baseLayer = L.tileLayer.offline('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+//   minZoom: 2,
+//   subdomains:['mt0','mt1','mt2','mt3']
+// }).addTo(map);
+
+
+// ノーマル
+// const baseLayer = L.tileLayer.offline('https://{s}.google.com/vt/lyrs=r&x={x}&y={y}&z={z}',{
+//   maxZoom: 20,
+//   subdomains:['mt0','mt1','mt2','mt3']
+// }).addTo(map);
+
+//Terrain　地形
+// const baseLayer = L.tileLayer.offline('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+//   maxZoom: 20,
+//   subdomains:['mt0','mt1','mt2','mt3']
+// }).addTo(map);
 
 // アイコンを作成する
 var markerIcon = L.icon({
@@ -48,6 +80,24 @@ L.rectangle(ssLatLang['ss4'], {color: "#ff7800", weight: 1}).addTo(map);
 L.rectangle(ssLatLang['ss5'], {color: "#ff7800", weight: 1}).addTo(map);
 
 map.setView([35.08421332279045, 137.17141124729068], 13);
+
+
+// Load kml file
+fetch('./222206_LEG1.kml')
+.then(res => res.text())
+.then(kmltext => {
+  // Create new kml overlay
+  const parser = new DOMParser();
+  const kml = parser.parseFromString(kmltext, 'text/xml');
+  const track = new L.KML(kml);
+  map.addLayer(track);
+  console.log(track);
+  // Adjust map to show the kml
+  const bounds = track.getBounds();
+  console.log(bounds);
+  map.fitBounds(bounds);
+});
+
 
 function saveTiles(channel, ss, latLang) {
   var corner1 = L.latLng(latLang[0][0], latLang[0][1]),
